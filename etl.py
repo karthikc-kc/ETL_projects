@@ -72,7 +72,7 @@ def process_data(cur, conn, filepath, func):
     global all_files
     # get all files matching extension from directory
     all_files = []
-    skip_File =['/home/workspace/data/log_data/2018/11/2018-11-11-events.json']
+    #skip_File =['/home/workspace/data/log_data/2018/11/2018-11-11-events.json']
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root,'*.json'))
         for f in files :
