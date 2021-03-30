@@ -6,6 +6,8 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    
+    ''' This will process the json log files and loads the artist data into the respective tables'''
     # open song file
     df = pd.read_json(filepath,typ='Series')
 
@@ -20,6 +22,8 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    
+    ''' This will process the json log files and loads the songs data into the respective tables'''
     # open log file
     df = pd.read_json(filepath, lines=True,)
     
@@ -68,17 +72,16 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    ''' This print the all the processed files by iterating throug the entire Log dataset'''
     global all_files
     # get all files matching extension from directory
     all_files = []
-    #skip_File =['/home/workspace/data/log_data/2018/11/2018-11-11-events.json']
+    
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root,'*.json'))
         for f in files :
             all_files.append(os.path.abspath(f))
-    print('****',all_files)
-    #all_files.remove('/home/workspace/data/log_data/2018/11/2018-11-11-events.json')
-
+    
     # get total number of files found
     num_files = len(all_files)
     print('{} files found in {}'.format(num_files, filepath))
@@ -86,7 +89,6 @@ def process_data(cur, conn, filepath, func):
     # iterate over files and process
     for i, datafile in enumerate(all_files, 1):
         func(cur, datafile)
-        #print('*****',cur,datafile)
         conn.commit()
         print('{}/{} files processed.'.format(i, num_files))
         
