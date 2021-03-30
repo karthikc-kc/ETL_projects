@@ -29,8 +29,7 @@ def process_log_file(cur, filepath):
 
 
     # convert timestamp column to datetime
-    df['ts']= pd.to_datetime(df['ts'], unit='ms').drop_duplicates()
-    df.ts.astype(object).where(df.ts.notnull(), None)
+    df['ts']= pd.to_datetime(df['ts'], unit='ms')
 
     # insert time data records
     time_data = ([df['ts'], df['ts'].dt.hour,df['ts'].dt.day,df['ts'].dt.week, df['ts'].dt.month,
